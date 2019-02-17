@@ -16,6 +16,10 @@ use App\Address;
 use App\Post;
 use App\Role;
 
+use App\Staff;
+use App\Photo;
+use App\Product;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -90,6 +94,24 @@ Route::get('/belongs_to_many_create', function () {
 });
 
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes PolyMorphic ReletionShip 
+|--------------------------------------------------------------------------
+|
+*/
+Route::get('/poly_morphic_create', function () {
+    $staff = Staff::find(1);
+    //dd($staff->photos);
+    $staff->photos()->create(['path'=>'example.jpg']);
+    return 'done';
+});
+Route::get('/poly_morphic_read', function () {
+    $staff = Staff::find(1);
+    //dd($staff->photos);
+    
+    return response()->json($staff->photos, 200);
+});
 
 
 Auth::routes();
