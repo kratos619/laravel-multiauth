@@ -14,6 +14,7 @@
 use App\User;
 use App\Address;
 use App\Post;
+use App\Role;
 
 Route::get('/', function () {
     return view('welcome');
@@ -73,6 +74,23 @@ Route::get('/delete_post', function () {
     $user->posts()->where('user_id', 1)->delete();
     return 'done';
 });
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes Belongs Many
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::get('/belongs_to_many_create', function () {
+    $user = User::find(1);
+    $role = new Role(['name' => 'Administrator']);
+    $user->roles()->save($role);
+    return 'done';
+});
+
+
+
 
 Auth::routes();
 
